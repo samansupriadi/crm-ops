@@ -10,5 +10,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: print triger details
         run: |
-          echo ${{ github.event.client_payload.github.action }}
-          echo ${{ github.event.client_payload.github.actor }}
+          echo "Jalan Pada repo" ${{ github.event.client_payload.repo }}
+          echo "Jalan Pada env" ${{ github.event.client_payload.env }}
