@@ -10,5 +10,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: print triger details
         run: |
-          echo "Jalan Pada environment" ${{ github.event.client_payload.environment }}
-          echo "APPS VERSION" ${{ github.event.client_payload.version }}
+          echo  ${{ github.event.client_payload.environment }}
+          echo  ${{ github.event.client_payload.version }}
