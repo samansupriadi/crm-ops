@@ -1,7 +1,7 @@
 name: run the workflow
 on:
   repository_dispatch:
-    types: [ development, staging, production ]
+    types: [development,staging,production]
 
 jobs:
   build:
