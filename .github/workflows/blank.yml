@@ -1,7 +1,7 @@
-name: run the workflow at ${{ github.event.client_payload.environment }}
+name: run the workflow
 on:
   repository_dispatch:
-    types: [ ${{ github.event.client_payload.environment }} ]
+    types: [ development, staging, production ]
 
 jobs:
   build:
