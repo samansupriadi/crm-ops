@@ -2,7 +2,6 @@ name: deploy the apps
 on:
   repository_dispatch:
     types: [development,staging,production]
-  workflow_dispatch:
 
 jobs:
   build:
