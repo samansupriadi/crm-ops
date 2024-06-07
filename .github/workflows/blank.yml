@@ -1,4 +1,4 @@
-name: run the workflow
+name: deploy the apps
 on:
   repository_dispatch:
     types: [development,staging,production]
@@ -7,9 +7,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: print triger details
+      - name: helm chart deploy apps
         run: |
-          echo  ${{ github.event.client_payload.environment }}
-          echo  ${{ github.event.client_payload.version }}
-          echo  ${{ github.event.client_payload.APP_NAME }}
+          echo "comand helm chart yang akan di jalankan untuk deploy sebagai berikut :"
+          echo "helm upgrade ${{ github.event.client_payload.APP_NAME }} ./charts/${{ github.event.client_payload.APP_NAME }}/ --values ./charts/${{ github.event.client_payload.APP_NAME }}/values-${{ github.event.client_payload.environment }}.yml --namespace=test-name-space --install  --set image.version=${{ github.event.client_payload.version }}  --set name.space=test-name-space --wait"
+
