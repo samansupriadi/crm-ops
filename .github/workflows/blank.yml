@@ -1,16 +1,40 @@
-name: deploy the apps
+# name: deploy the apps
+# on:
+#   repository_dispatch:
+#     types: [development,staging,production]
+
+# jobs:
+#   build:
+#     environment:
+#       name: ${{ github.event.client_payload.environment }}
+
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: helm chart deploy apps
+#         run: |
+#           echo "${{ vars.OKD_TOKEN}} ${{ vars.SERVER_OKD }}"
+#           echo "helm upgrade ${{ github.event.client_payload.APP_NAME }} ./charts/${{ github.event.client_payload.APP_NAME }}/ --values ./charts/${{ github.event.client_payload.APP_NAME }}/values-${{ github.event.client_payload.environment }}.yml --namespace=test-name-space --install  --set image.version=${{ github.event.client_payload.version }}  --set name.space=test-name-space --wait"
+name: CI
+
 on:
-  repository_dispatch:
-    types: [development,staging,production]
+  workflow_dispatch:
+    inputs:
+      display_title:
+        description: 'Title for the workflow run'
+        required: false
+        default: 'CI Workflow'
 
 jobs:
   build:
-    environment:
-      name: ${{ github.event.client_payload.environment }}
-
     runs-on: ubuntu-latest
     steps:
-      - name: helm chart deploy apps
-        run: |
-          echo "${{ vars.OKD_TOKEN}} ${{ vars.SERVER_OKD }}"
-          echo "helm upgrade ${{ github.event.client_payload.APP_NAME }} ./charts/${{ github.event.client_payload.APP_NAME }}/ --values ./charts/${{ github.event.client_payload.APP_NAME }}/values-${{ github.event.client_payload.environment }}.yml --namespace=test-name-space --install  --set image.version=${{ github.event.client_payload.version }}  --set name.space=test-name-space --wait"
+    - name: Checkout target repo
+      uses: actions/checkout@v2
+      
+    - name: Set display title
+      run: |
+        echo "::set-output name=display_title::${{ github.event.inputs.display_title }}"
+      
+    - name: Run some tests
+      run: echo "Running tests in target repo with title: ${{ steps.set_display_title.outputs.display_title }}"
+      # Tambahkan langkah-langkah lain yang diperlukan
