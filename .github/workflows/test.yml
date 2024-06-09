@@ -1,0 +1,15 @@
+name: Workflow Name
+on:
+  repository_dispatch:
+    types:
+      - deploy
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo Inputs
+        run: |
+          echo "${{ github.event.client_payload.string-type }}" # "placeholder"
+          if [[ "${{ github.event.client_payload.nested.number-type }}" -gt -1 ]]; then echo "🟢"; fi      # 🟢
+          if [[ "${{ github.event.client_payload.nested.boolean-type }}" == "true" ]]; then echo "🟢"; fi  # 🟢
