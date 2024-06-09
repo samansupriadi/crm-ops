@@ -14,4 +14,4 @@ jobs:
         run: |
           echo "${{ vars.OKD_TOKEN}} ${{ vars.SERVER_OKD }}"
           echo "helm upgrade ${{ github.event.client_payload.APP_NAME }} ./charts/${{ github.event.client_payload.APP_NAME }}/ --values ./charts/${{ github.event.client_payload.APP_NAME }}/values-${{ github.event.client_payload.environment }}.yml --namespace=test-name-space --install  --set image.version=${{ github.event.client_payload.version }}  --set name.space=test-name-space --wait"
-
+          exit 1;
