@@ -27,14 +27,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    outputs:
+      display_title: ${{ steps.set_display_title.outputs.display_title }}
+
     steps:
     - name: Checkout target repo
       uses: actions/checkout@v2
       
     - name: Set display title
+      id: set_display_title
       run: |
+        echo "display_title=${{ github.event.inputs.display_title }}" >> $GITHUB_ENV
         echo "::set-output name=display_title::${{ github.event.inputs.display_title }}"
-      
-    - name: Run some tests
-      run: echo "Running tests in target repo with title: ${{ steps.set_display_title.outputs.display_title }}"
-      # Tambahkan langkah-langkah lain yang diperlukan
+
+
