@@ -1,15 +1,11 @@
-name: Workflow Name
+name: Main
 on:
-  repository_dispatch:
-    types:
-      - deploy
-
+  workflow_dispatch
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo Inputs
+      - uses: actions/checkout@master
+      - name: Pause for 10 seconds
         run: |
-          echo "${{ github.event.client_payload.string-type }}" # "placeholder"
-          if [[ "${{ github.event.client_payload.nested.number-type }}" -gt -1 ]]; then echo "🟢"; fi      # 🟢
-          if [[ "${{ github.event.client_payload.nested.boolean-type }}" == "true" ]]; then echo "🟢"; fi  # 🟢
+          sleep 10
